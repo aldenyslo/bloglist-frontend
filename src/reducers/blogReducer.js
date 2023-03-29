@@ -44,7 +44,6 @@ export const likeBlog = (blog) => {
     const updatedBlog = await blogService.update({
       ...blog,
       likes: blog.likes + 1,
-      // user: blog.user.id,
     })
     dispatch(placeLike(updatedBlog))
   }

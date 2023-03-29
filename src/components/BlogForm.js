@@ -13,13 +13,7 @@ const BlogForm = ({ toggleVisibility }) => {
   const addBlog = (e) => {
     e.preventDefault()
     toggleVisibility()
-    dispatch(
-      createBlog({
-        title: title,
-        author: author,
-        url: url,
-      })
-    )
+    dispatch(createBlog({ title, author, url }))
     dispatch(
       setNotification(`a new blog ${title} by ${author} added`, "success", 5000)
     )
