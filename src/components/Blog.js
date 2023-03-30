@@ -1,59 +1,45 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { likeBlog, removeBlog } from "../reducers/blogReducer"
+import CommentForm from "./Comments"
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog }) => {
   const dispatch = useDispatch()
-  const [visible, setVisible] = useState(false)
+  const navigate = useNavigate()
 
-  const showWhenVisible = { display: visible ? "" : "none" }
+  if (!blog) return
 
-  const toggleVisibility = (e) => {
-    setVisible(!visible)
-    changeLabel(e)
-  }
-
-  const changeLabel = (e) => {
-    e.target.textContent = e.target.textContent === "view" ? "hide" : "view"
-  }
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: "solid",
-    borderWidth: 1,
-    marginBottom: 5,
-  }
+  const user = useSelector((state) => state.user)
 
   return (
-    <div style={blogStyle} className="blog">
-      {blog.title} {blog.author}
-      <button onClick={toggleVisibility} className="view-btn">
-        view
-      </button>
-      <div style={showWhenVisible} className="moreInfo">
-        {blog.url}
-        <br></br>
-        likes {blog.likes}
+    <div>
+      <h2>{blog.title}</h2>
+      <a href={blog.url}>{blog.url}</a>
+      <div>
+        {blog.likes} likes
         <button onClick={() => dispatch(likeBlog(blog))} className="like-btn">
           like
         </button>
         <br></br>
-        {blog.user.name}
-        <br></br>
-        {user.username === blog.user.username ? (
-          <button
-            onClick={() => {
-              dispatch(removeBlog(blog.id))
-            }}
-            className="remove-btn"
-          >
-            remove
-          </button>
-        ) : (
-          ""
-        )}
+        added by {blog.user.name}
       </div>
+      {user.username === blog.user.username ? (
+        <button
+          onClick={() => {
+            dispatch(removeBlog(blog.id))
+            navigate("/")
+          }}
+          className="remove-btn"
+        >
+          remove
+        </button>
+      ) : null}
+      <CommentForm id={blog.id} />
+      <ul>
+        {blog.comments.map((comment, index) => (
+          <li key={index}>{comment}</li>
+        ))}
+      </ul>
     </div>
   )
 }
