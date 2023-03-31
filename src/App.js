@@ -48,14 +48,17 @@ const App = () => {
   return (
     <div>
       <Navbar user={user} />
-      <h2>blogs</h2>
+      <h2 className="font-bold capitalize text-4xl m-4 text-red-400">blogs</h2>
       <Notification />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="users" element={<Users users={users} />} />
         <Route path="/users/:id" element={<User user={viewUser} />} />
-        <Route path="/blogs/:id" element={<Blog blog={viewBlog} />} />
+        <Route
+          path="/blogs/:id"
+          element={<Blog className="container" blog={viewBlog} />}
+        />
       </Routes>
     </div>
   )

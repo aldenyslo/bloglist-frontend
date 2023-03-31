@@ -15,11 +15,20 @@ const CommentForm = ({ id }) => {
   }
 
   return (
-    <div>
-      <h3>comments</h3>
-      <form onSubmit={submitComment}>
-        <input value={comment} onChange={(e) => setComment(e.target.value)} />
-        <button type="submit">add comment</button>
+    <div className="grid gap-2 mt-6">
+      <h3 className="capitalize font-bold text-lg">comments</h3>
+      <form onSubmit={submitComment} className="flex gap-3">
+        <input
+          className="border-2 border-gray-400 rounded"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="bg-red-400 text-white rounded py-1 px-3 transition ease-linear hover:bg-red-500"
+        >
+          add comment
+        </button>
       </form>
     </div>
   )

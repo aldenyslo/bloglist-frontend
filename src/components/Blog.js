@@ -12,32 +12,40 @@ const Blog = ({ blog }) => {
   const user = useSelector((state) => state.user)
 
   return (
-    <div>
-      <h2>{blog.title}</h2>
-      <a href={blog.url}>{blog.url}</a>
-      <div>
-        {blog.likes} likes
-        <button onClick={() => dispatch(likeBlog(blog))} className="like-btn">
-          like
-        </button>
-        <br></br>
-        added by {blog.user.name}
+    <div className="container ml-4 [&>*]:text-slate-800 grid gap-3">
+      <h2 className="font-bold text-2xl capitalize">{blog.title}</h2>
+      <div className="ml-4 grid gap-2">
+        <a href={blog.url} className="italic underline hover:text-red-800">
+          {blog.url}
+        </a>
+        <p className="flex gap-3 items-center">
+          {blog.likes} likes
+          <button
+            onClick={() => dispatch(likeBlog(blog))}
+            className="like-btn px-4 py-1 bg-red-400 text-white rounded-md transition ease-linear hover:bg-red-500"
+          >
+            like
+          </button>
+        </p>
+        <p>Added by {blog.user.name}</p>
+        {user.username === blog.user.username ? (
+          <button
+            onClick={() => {
+              dispatch(removeBlog(blog.id))
+              navigate("/")
+            }}
+            className="remove-btn rounded max-w-fit px-6 py-0.5 bg-slate-400 text-white transition ease-linear hover:bg-slate-500"
+          >
+            remove
+          </button>
+        ) : null}
       </div>
-      {user.username === blog.user.username ? (
-        <button
-          onClick={() => {
-            dispatch(removeBlog(blog.id))
-            navigate("/")
-          }}
-          className="remove-btn"
-        >
-          remove
-        </button>
-      ) : null}
       <CommentForm id={blog.id} />
       <ul>
         {blog.comments.map((comment, index) => (
-          <li key={index}>{comment}</li>
+          <li key={index} className="before:content-['-'] before:mr-2">
+            {comment}
+          </li>
         ))}
       </ul>
     </div>

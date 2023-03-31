@@ -21,12 +21,15 @@ const LoginForm = () => {
   }
 
   return (
-    <div>
-      <h2>Log in to application</h2>
-      <form onSubmit={loginSubmit}>
+    <div className="pb-4">
+      <h2 className="bg-red-400 font-bold text-xl p-3 text-white text-center">
+        Log in to application
+      </h2>
+      <form onSubmit={loginSubmit} className="grid gap-3 justify-center mt-5">
         <div>
-          username
+          <label className="capitalize">username</label>
           <input
+            className="border-2 ml-2 border-gray-400 rounded p-0.5"
             type="text"
             value={username}
             name="Username"
@@ -35,8 +38,9 @@ const LoginForm = () => {
           />
         </div>
         <div>
-          password
+          <label className="capitalize">password</label>
           <input
+            className="border-2 ml-2 border-gray-400 rounded p-0.5"
             type="password"
             value={password}
             name="Password"
@@ -44,7 +48,11 @@ const LoginForm = () => {
             id="password"
           />
         </div>
-        <button type="submit" id="login-btn">
+        <button
+          type="submit"
+          id="login-btn"
+          className="bg-red-400 capitalize rounded-md font-bold hover:bg-red-500 text-white py-1"
+        >
           login
         </button>
       </form>

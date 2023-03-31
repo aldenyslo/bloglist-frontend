@@ -6,7 +6,7 @@ import Blogs from "./BlogList"
 const Home = () => {
   const blogFormRef = useRef()
   return (
-    <div>
+    <div className="m-4">
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm
           toggleVisibility={() => blogFormRef.current.toggleVisibility()}

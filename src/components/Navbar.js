@@ -5,19 +5,21 @@ import { logoutUser } from "../reducers/userReducer"
 const Navbar = ({ user }) => {
   const dispatch = useDispatch()
 
-  const navbarStyle = {
-    display: "flex",
-    gap: "0.5rem",
-    backgroundColor: "lightgrey",
-    padding: "0.5rem",
-  }
-
   return (
-    <div style={navbarStyle}>
-      <Link to="/">blogs</Link>
-      <Link to="/users">users</Link>
-      {`${user.name} logged in`}
-      <button onClick={() => dispatch(logoutUser())}>logout</button>
+    <div className="bg-red-400 flex gap-4 text-white p-4 items-center">
+      <Link to="/" className="underline capitalize hover:italic">
+        blogs
+      </Link>
+      <Link to="/users" className="underline capitalize hover:italic">
+        users
+      </Link>
+      <span className="italic">{`${user.name} logged in`}</span>
+      <button
+        className="bg-white text-red-400 p-1 px-3 rounded-lg hover:transition-all hover:scale-110"
+        onClick={() => dispatch(logoutUser())}
+      >
+        logout
+      </button>
     </div>
   )
 }
